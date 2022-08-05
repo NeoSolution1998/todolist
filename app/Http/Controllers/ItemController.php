@@ -14,7 +14,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return Item::orderBy('created_at', 'DESC')->get();
+        $items = Item::orderBy('created_at', 'DESC')->get();
+        return $items;
     }
 
     /**
