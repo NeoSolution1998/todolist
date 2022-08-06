@@ -3,7 +3,9 @@
     "scripts": {
         "heroku-postbuild": "npm run production",
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "prod": "npm run production",
+        "production": "mix --production"
     },
     "devDependencies": {
         "@popperjs/core": "^2.10.2",
