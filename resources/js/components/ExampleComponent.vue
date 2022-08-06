@@ -1,83 +1,85 @@
 <template>
     <div class="container">
         <main class="container py-4">
+
            
-            <table class="table">
                 <div class="todos">
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th>TODOS <span class="badge bg-primary rounded-pill">{{this.count.todos}}</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in items">
-                            <td v-if="!item.urgent" class="hover-effect-btn">
-                                <div class="overlay">
-                                    <input type="checkbox" @change="updateCheck(item.id, item.completed)"
-                                        v-model="item.completed">
-                                    <span :class="[item.completed ? 'completed' : 'itemText']"> {{ item.name }}</span>
-                                </div>
-                                <div class="button">
-                                    <button type="button" @click="updateItem(item.id, item.urgent = true)"
-                                        onclick="location.reload(); return false;"
-                                        class="btn btn-link"
-                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                        move to urgent
-                                    </button>
-                                    <button type="button" onclick="location.reload(); return false;"
-                                        @click="deleteItem(item.id)" class="btn btn-link"
-                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                        remove
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>TODOS <span class="badge bg-primary rounded-pill">{{ this.count.todos }}</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in items">
+                                <td v-if="!item.urgent" class="hover-effect-btn">
+                                    <div class="overlay">
+                                        <input type="checkbox" @change="updateCheck(item.id, item.completed)"
+                                            v-model="item.completed">
+                                        <span :class="[item.completed ? 'completed' : 'itemText']"> {{ item.name
+                                        }}</span>
+                                    </div>
+                                    <div class="button">
+                                        <button type="button" @click="updateItem(item.id, item.urgent = true)"
+                                            onclick="location.reload(); return false;" class="btn btn-link"
+                                            style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                            move to urgent
+                                        </button>
+                                        <button type="button" onclick="location.reload(); return false;"
+                                            @click="deleteItem(item.id)" class="btn btn-link"
+                                            style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                            remove
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td>
-                                <item-component></item-component>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <tr>
+                                <td>
+                                    <item-component></item-component>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="urgent todos">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Urgent TODOS <span
+                                        :class="[this.count.urgent_todos < 4 ? 'badge bg-primary rounded-pill' : 'badge bg-primary rounded-pill bg-danger']">{{ this.count.urgent_todos }}</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in items">
+                                <td v-if="item.urgent" class="hover-effect-btn">
+                                    <div class="overlay">
+                                        <input type="checkbox" @change="updateCheck(item.id, item.completed)"
+                                            v-model="item.completed">
+                                        <span :class="[item.completed ? 'completed' : 'itemText']"> {{ item.name
+                                        }}</span>
+                                    </div>
+
+                                    <div class="button">
+                                        <button type="button" @click="updateItem(item.id, item.urgent = false)"
+                                            onclick="location.reload(); return false;" class="btn btn-link"
+                                            style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                            move to todos
+                                        </button>
+
+                                        <button type="button" onclick="location.reload(); return false;"
+                                            @click="deleteItem(item.id)" class="btn btn-link"
+                                            style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                            remove
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
             </div>
-            <div class="urgent todos">
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th>Urgent TODOS <span :class="[this.count.urgent_todos < 4 ? 'badge bg-primary rounded-pill' : 'badge bg-primary rounded-pill bg-danger']">{{this.count.urgent_todos}}</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in items">
-                            <td v-if="item.urgent" class="hover-effect-btn">
-                                <div class="overlay">
-                                    <input type="checkbox" @change="updateCheck(item.id, item.completed)"
-                                        v-model="item.completed">
-                                    <span :class="[item.completed ? 'completed' : 'itemText']"> {{ item.name }}</span>
-                                </div>
-
-                                <div class="button">
-                                    <button type="button" @click="updateItem(item.id, item.urgent = false)"
-                                        onclick="location.reload(); return false;"
-                                        class="btn btn-link"
-                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                        move to todos
-                                    </button>
-
-                                    <button type="button" onclick="location.reload(); return false;"
-                                        @click="deleteItem(item.id)" class="btn btn-link"
-                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                        remove
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            </table>
         </main>
 
     </div>
@@ -101,19 +103,6 @@ export default {
         console.log('response');
     },
     methods: {
-        addItem() {
-            axios.post('/api/item/store', this.item, {
-                headers: {
-                    "Content-type": "application/json"
-                }
-            })
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
         updateCheck(id, completed) {
             console.log(id);
             const article = { completed: completed };
@@ -191,7 +180,9 @@ export default {
 .todos {
     float: left;
 }
+
 .urgent todos {
     float: right;
 }
+
 </style>

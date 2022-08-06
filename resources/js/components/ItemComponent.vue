@@ -3,8 +3,8 @@
 
         <form class="input-group">
             <input v-model="item.name" type="text" class="form-control" placeholder="input for new TODO">
-            <div v-if="item.name">
-                <button class="btn btn-outline-secondary" @click="addItem()" type="submit"
+            <div v-if="item.name" >
+                <button class="btn btn-outline-secondary btn-sm" @click="addItem()" type="submit"
                 id="button-addon2">Add</button>
             </div>
         </form>
@@ -39,3 +39,10 @@ export default {
     }
 }
 </script>
+
+<style>
+
+.form-control {
+    height: 1.7rem;
+}
+</style>
