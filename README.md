@@ -4,7 +4,7 @@
 
 ## TODO list
 
-- **[Laravel](https://vehikl.com/)**
-- **[Vue](https://tighten.co)**
-- **[axios](https://kirschbaumdevelopment.com)**
-- **[vite](https://64robots.com)**
+- **[Laravel]**
+- **[Vue]**
+- **[axios]**
+- **[vite]**
