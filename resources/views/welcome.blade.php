@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div class="container">
-        <main class="container py-4">
+    <div class="container-sm">
+        <main class="container py-2">
             <example-component :count="{{json_encode($count)}}"></example-component>
         </main>
     </div>
