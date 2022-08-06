@@ -7,5 +7,8 @@
  http://todo-list-laravel-vue.herokuapp.com/?
 - **[Laravel]**
 - **[Vue]**
+- **[Laravel/ui]**
+- **[Bootstrap]**
+- **[Heroku]**
 - **[axios]**
 - **[vite]**
