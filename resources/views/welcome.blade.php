@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <main class="container py-4">
-            <item-component></item-component>
+            <example-component></example-component>
         </main>
     </div>
-    <example-component></example-component>
+
 @endsection
