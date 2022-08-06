@@ -1,6 +1,9 @@
 <template>
     <div class="container">
         <main class="container py-4">
+            <p>todos {{this.count.todos}}</p>
+            <p>urgent todos {{this.count.urgent_todos}}</p>
+
             <div class="todos">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-inverse">
@@ -13,20 +16,18 @@
                             <td v-if="!item.urgent" class="hover-effect-btn">
                                 <div class="overlay">
                                     <input type="checkbox" @change="updateCheck(item.id, item.completed)"
-                                        v-model="item.completed">
+                                        v-model="item.completed" @click="itenCounts">
                                     <span :class="[item.completed ? 'completed' : 'itemText']"> {{ item.name }}</span>
                                 </div>
 
                                 <div class="button">
-                                    <button type="button" @click="updateItem(item.id, item.urgent = true)" 
-                                        onclick="location.reload(); return false;"
-                                        class="btn btn-link"
+                                    <button type="button" @click="updateItem(item.id, item.urgent = true)"
+                                         class="btn btn-link"
                                         style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">move
-                                        to urgent</button>
+                                        to urgent </button>
                                     <button type="button" 
-                                        onclick="location.reload(); return false;"
                                         @click="deleteItem(item.id)" class="btn btn-link"
-                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">remove</button>
+                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" > remove </button>
                                 </div>
                             </td>
                         </tr>
@@ -57,17 +58,15 @@
                                 <div class="overlay">
                                     <input type="checkbox" @change="updateCheck(item.id, item.completed)"
                                         v-model="item.completed">
-                                    <span :class="[item.completed ? 'completed' : 'itemText']">{{item.name }}</span>
+                                    <span :class="[item.completed ? 'completed' : 'itemText']">{{ item.name }}</span>
                                 </div>
 
                                 <div class="button">
                                     <button type="button" @click="updateItem(item.id, item.urgent = false)"
-                                        onclick="location.reload(); return false;"
-                                        class="btn btn-link"
+                                         class="btn btn-link"
                                         style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">move
                                         to todos</button>
                                     <button type="button" 
-                                        onclick="location.reload(); return false;"
                                         @click="deleteItem(item.id)" class="btn btn-link"
                                         style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">remove</button>
                                 </div>
@@ -82,6 +81,8 @@
 </template>
 
 <script>
+
+
 export default {
     props: [
         'count'
@@ -105,8 +106,7 @@ export default {
             axios.put('/api/item/' + id, article)
                 .then(response => {
                     if (response.status == 200) {
-                        console.log('response');
-
+                        console.log('update');
                     }
                 })
                 .catch(error => {
@@ -122,8 +122,15 @@ export default {
                 }
             })
                 .then(response => {
-                    if (response.status == 200) {
+                    if (response.status == 200 && urgent == false) {
+                        this.count.todos = this.count.todos + 1;
                         console.log(article);
+                        console.log(this.count.todos);
+                    }
+                    if (response.status == 200 && urgent == true) {
+                        this.count.urgent_todos = this.count.urgent_todos + 1;
+                        console.log(article);
+                        console.log(this.count.urgent_todos);
                     }
                 })
                 .catch(error => {
