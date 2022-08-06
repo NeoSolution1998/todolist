@@ -1,7 +1,7 @@
 <template>
     <div class="addItem">
 
-        <form class="input-group">
+        <form>
             <input v-model="item.name" type="text" class="form-control" placeholder="input for new TODO">
             <div v-if="item.name" >
                 <button class="btn btn-outline-secondary btn-sm" @click="addItem()" type="submit"

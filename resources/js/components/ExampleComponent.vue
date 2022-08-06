@@ -1,8 +1,6 @@
 <template>
     <div class="container">
         <main class="container py-4">
-
-
             <div class="todos">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-inverse">
@@ -16,23 +14,22 @@
                                 <div class="overlay">
                                     <input type="checkbox" @change="updateCheck(item.id, item.completed)"
                                         v-model="item.completed">
-                                    <span :class="[item.completed ? 'completed' : 'itemText']"> {{ item.name
-                                    }}</span>
+                                    <span :class="[item.completed ? 'completed' : 'itemText']"> {{ item.name }}</span>
                                 </div>
+
                                 <div class="button">
-                                    <button type="button" @click="updateItem(item.id, item.urgent = true)"
+                                    <button type="button" @click="updateItem(item.id, item.urgent = true)" 
+                                        onclick="location.reload(); return false;"
                                         class="btn btn-link"
-                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                        move to urgent
-                                    </button>
-                                    <button type="button" @click="deleteItem(item.id)" class="btn btn-link"
-                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                        remove
-                                    </button>
+                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">move
+                                        to urgent</button>
+                                    <button type="button" 
+                                        onclick="location.reload(); return false;"
+                                        @click="deleteItem(item.id)" class="btn btn-link"
+                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">remove</button>
                                 </div>
                             </td>
                         </tr>
-
                         <tr>
                             <td>
                                 <item-component></item-component>
@@ -41,11 +38,13 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="urgent todos">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-inverse">
                         <tr>
-                            <th>Urgent TODOS <span
+                            <th>Urgent TODOS
+                                <span
                                     :class="[this.count.urgent_todos < 4 ? 'badge bg-primary rounded-pill' : 'badge bg-primary rounded-pill bg-danger']">{{
                                             this.count.urgent_todos
                                     }}</span>
@@ -58,27 +57,24 @@
                                 <div class="overlay">
                                     <input type="checkbox" @change="updateCheck(item.id, item.completed)"
                                         v-model="item.completed">
-                                    <span :class="[item.completed ? 'completed' : 'itemText']"> {{ item.name
-                                    }}</span>
+                                    <span :class="[item.completed ? 'completed' : 'itemText']">{{item.name }}</span>
                                 </div>
 
                                 <div class="button">
                                     <button type="button" @click="updateItem(item.id, item.urgent = false)"
+                                        onclick="location.reload(); return false;"
                                         class="btn btn-link"
-                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                        move to todos
-                                    </button>
-
-                                    <button type="button" @click="deleteItem(item.id)" class="btn btn-link"
-                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                        remove
-                                    </button>
+                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">move
+                                        to todos</button>
+                                    <button type="button" 
+                                        onclick="location.reload(); return false;"
+                                        @click="deleteItem(item.id)" class="btn btn-link"
+                                        style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">remove</button>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-
             </div>
         </main>
 
