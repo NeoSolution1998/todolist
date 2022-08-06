@@ -4,7 +4,7 @@
         "dev": "vite",
         "build": "vite build",
         "prod": "npm run production",
-        "production": "mix --production",
+        "production": "npm install",
         "heroku-postbuild": "npm run production"
     },
     "devDependencies": {
