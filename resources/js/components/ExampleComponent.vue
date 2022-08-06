@@ -1,12 +1,13 @@
 <template>
     <div class="container">
         <main class="container py-4">
+           
             <table class="table">
                 <div class="todos">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-inverse">
                         <tr>
-                            <th>TODOS <span class="badge bg-primary rounded-pill"></span></th>
+                            <th>TODOS <span class="badge bg-primary rounded-pill">{{this.count.todos}}</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -19,6 +20,7 @@
                                 </div>
                                 <div class="button">
                                     <button type="button" @click="updateItem(item.id, item.urgent = true)"
+                                        onclick="location.reload(); return false;"
                                         class="btn btn-link"
                                         style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                         move to urgent
@@ -44,7 +46,7 @@
                 <table class="table table-bordered table-hover">
                     <thead class="thead-inverse">
                         <tr>
-                            <th>Urgent TODOS<span class="badge bg-primary rounded-pill">14</span></th>
+                            <th>Urgent TODOS <span :class="[this.count.urgent_todos < 4 ? 'badge bg-primary rounded-pill' : 'badge bg-primary rounded-pill bg-danger']">{{this.count.urgent_todos}}</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +60,7 @@
 
                                 <div class="button">
                                     <button type="button" @click="updateItem(item.id, item.urgent = false)"
+                                        onclick="location.reload(); return false;"
                                         class="btn btn-link"
                                         style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                         move to todos
@@ -82,18 +85,20 @@
 
 <script>
 export default {
+    props: [
+        'count'
+    ],
     data() {
         return {
             items: {
                 name: ""
-            }
+            },
         }
     },
     mounted() {
         axios.get('/api/items')
             .then(response => (this.items = response.data));
         console.log('response');
-        console.log(this.items.lenght);
     },
     methods: {
         addItem() {

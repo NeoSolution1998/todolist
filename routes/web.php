@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Item;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $count = [];
+    $todos = Item::where('urgent', false)->get();
+    $urgent_todos = Item::where('urgent', true)->get();
+
+    $count['todos'] = $todos->count();
+    $count['urgent_todos'] = $urgent_todos->count();
+    
+    return view('welcome', compact('count'));
 });
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
