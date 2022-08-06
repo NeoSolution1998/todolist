@@ -1,8 +1,6 @@
 <template>
     <div class="container">
         <main class="container py-4">
-            <p>todos {{this.count.todos}}</p>
-            <p>urgent todos {{this.count.urgent_todos}}</p>
 
             <div class="todos">
                 <table class="table table-bordered table-hover">
@@ -23,13 +21,16 @@
                                 <div class="button">
                                     <button type="button" @click="updateItem(item.id, item.urgent = true)"
                                          class="btn btn-link"
+                                         onclick="location.reload(); return false;"
                                         style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">move
                                         to urgent </button>
                                     <button type="button" 
-                                        @click="deleteItem(item.id)" class="btn btn-link"
+                                        @click="deleteItem(item.id, item.urgent = true)" class="btn btn-link"
+                                        onclick="location.reload(); return false;"
                                         style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" > remove </button>
                                 </div>
                             </td>
+
                         </tr>
                         <tr>
                             <td>
@@ -64,10 +65,12 @@
                                 <div class="button">
                                     <button type="button" @click="updateItem(item.id, item.urgent = false)"
                                          class="btn btn-link"
+                                         onclick="location.reload(); return false;"
                                         style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">move
                                         to todos</button>
                                     <button type="button" 
-                                        @click="deleteItem(item.id)" class="btn btn-link"
+                                        @click="deleteItem(item.id, item.urgent = false)" class="btn btn-link"
+                                        onclick="location.reload(); return false;"
                                         style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">remove</button>
                                 </div>
                             </td>
@@ -124,26 +127,35 @@ export default {
                 .then(response => {
                     if (response.status == 200 && urgent == false) {
                         this.count.todos = this.count.todos + 1;
+                        this.count.urgent_todos = this.count.urgent_todos - 1;
                         console.log(article);
+                        console.log('todos :');
                         console.log(this.count.todos);
                     }
                     if (response.status == 200 && urgent == true) {
+                        this.count.todos = this.count.todos - 1;
                         this.count.urgent_todos = this.count.urgent_todos + 1;
                         console.log(article);
+                        console.log('urgent todos :');
                         console.log(this.count.urgent_todos);
-                    }
+                    }   
                 })
                 .catch(error => {
                     console.log(error);
                 })
 
         },
-        deleteItem(id) {
+        deleteItem(id, urgent) {
             axios.delete('/api/item/' + id)
                 .then(response => {
-                    if (response.status == 200) {
-                        this.$emit('itemdeleted');
+                     if (response.status == 200 && urgent == false) {
+                        this.count.urgent_todos = this.count.urgent_todos - 1;
+                        console.log(this.count.urgent_todos);
                     }
+                    if (response.status == 200 && urgent == true) {
+                        this.count.todos = this.count.todos - 1;
+                        console.log(this.count.todos);
+                    }   
                 })
                 .catch(error => {
                     console.log(id);
